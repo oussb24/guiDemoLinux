@@ -1,3 +1,4 @@
+#tabs2_backup#
 #!/usr/bin/bash
 # -*- coding: utf-8 -*-
 
@@ -23,14 +24,18 @@ import copy
 import threading
 
 
-        
-counter = 0         
+p = 'None'       
 
+idEndpoint_connect = None
 class Ui_Widget(object):
+    print("this is the start of class")
+    global idEndpoint_connect
+    #idEndpoint_connect='None'
+    print("variable from class is ", idEndpoint_connect)
+    p = 'None'
+ 
     
-    
-  
-    
+
 
     def setupUi(self, Widget):
 
@@ -173,6 +178,7 @@ class Ui_Widget(object):
         self.showResources_validateButton.clicked.connect(self.showResources_function)
         self.addResource_validatioButton.clicked.connect(self.addResoource_function)
         
+        #self.connectClient_validateButton.clicked.connect(self.waitingForInputTochangeThread)
         
         self.retranslateUi(Widget)
         self.tabs.setCurrentIndex(4)
@@ -207,7 +213,7 @@ class Ui_Widget(object):
 
     
     def createIface_function(self):
-            
+        
                 global ifaceNumber
                 url = "https://integ.m2m.orange.com/api/v1/deviceMgt/devices"
 
@@ -255,21 +261,55 @@ class Ui_Widget(object):
                 }
                 response = requests.request("POST", url, headers=headers, data=payload,verify =False)
                 print(response.text)
-            
-    
+  
+    def waitingForInputTochangeThread(self):
+        
+        def theThread():
+            global idEndpoint_connect
+            print(idEndpoint_connect)
+            if(idEndpoint_connect  == None):
+                print("first",idEndpoint_connect)
+                idEndpoint_connect = self.connectClient_inputEndPointName.text()
+                # urn = "java -jar leshan-client-demo.jar "+ "-n "+ "urn:lo:lwm2m:"+ self.connectClient_inputEndPointName.text() +" -i "+ self.connectClient_inputEndPointName.text()+" -p 6d7973656372657470736b617a657274 -u lwm2m.integ.m2m.orange.com"
 
+                print("second",idEndpoint_connect)
+                
+            else:
+                print("No not the case")
+        t=threading.Thread(target=theThread)
+        t.start()
     def connectIface_function(self):
               
-        urn = "java -jar leshan-client-demo.jar "+ "-n "+ "urn:lo:lwm2m:"+ self.connectClient_inputEndPointName.text() +" -i "+ self.connectClient_inputEndPointName.text()+" -p 6d7973656372657470736b617a657274 -u lwm2m.integ.m2m.orange.com"
-        urn = urn.strip('"')
-        #p = subprocess.Popen(["java","-jar","leshan-client-demo.jar","-n","urn:lo:lwm2m:"+self.connectClient_inputEndPointName.text(),"-i",self.connectClient_inputEndPointName.text(),"-p","6d7973656372657470736b617a657274","-u","lwm2m.integ.m2m.orange.com"], stdin=PIPE,stderr=PIPE)
+        # urn = "java -jar leshan-client-demo.jar "+ "-n "+ "urn:lo:lwm2m:"+ self.connectClient_inputEndPointName.text() +" -i "+ self.connectClient_inputEndPointName.text()+" -p 6d7973656372657470736b617a657274 -u lwm2m.integ.m2m.orange.com"
+        # urn = urn.strip('"')
+        # #p = subprocess.Popen(["java","-jar","leshan-client-demo.jar","-n","urn:lo:lwm2m:"+self.connectClient_inputEndPointName.text(),"-i",self.connectClient_inputEndPointName.text(),"-p","6d7973656372657470736b617a657274","-u","lwm2m.integ.m2m.orange.com"], stdin=PIPE,stderr=PIPE)
 
-        #pr = copy.copy(p)
-        #p = subprocess.Popen(str(urn),shell = True, stdin=PIPE,stderr=PIPE)
-        #p = pexpect.spawn(str(urn))
-        p = subprocess.Popen(str(urn),shell = True,stdin=PIPE)
+        # #pr = copy.copy(p)
+        # #p = subprocess.Popen(str(urn),shell = True, stdin=PIPE,stderr=PIPE)
+        # #p = pexpect.spawn(str(urn))
+        # p = subprocess.Popen(str(urn),shell = True,stdin=PIPE)
+        # print(type(p))
+        #global i
+        global p 
+        if (p =='None'):
+            urn = "java -jar leshan-client-demo.jar "+ "-n "+ "urn:lo:lwm2m:"+ self.connectClient_inputEndPointName.text() +" -i "+ self.connectClient_inputEndPointName.text()+" -p 6d7973656372657470736b617a657274 -u lwm2m.integ.m2m.orange.com"
+            urn = urn.strip('"')
+            p = subprocess.Popen(["java","-jar","leshan-client-demo.jar","-n","urn:lo:lwm2m:"+self.connectClient_inputEndPointName.text(),"-i",self.connectClient_inputEndPointName.text(),"-p","6d7973656372657470736b617a657274","-u","lwm2m.integ.m2m.orange.com"], stdin=PIPE,stderr=PIPE)
+        else:
+            print("p has already been changed")
         
-        
+       
+        # def inputThread():
+        #     global idEndpoint_connect
+        #     global p
+        #     print("first id",idEndpoint_connect)
+            
+            
+        # t = threading.Thread(target=inputThread)
+        # t.start()
+        # print("third id",idEndpoint_connect)
+        # #p = generateProcess.processObj()
+        # return p
     
         
 
@@ -299,31 +339,57 @@ class Ui_Widget(object):
         
     def addResoource_function(self):
         #global counter
-        def addResource_thread():
-            counter = 0
-            print(threading.get_ident())
-
-            urn = "java -jar leshan-client-demo.jar "+ "-n "+ "urn:lo:lwm2m:"+ self.connectClient_inputEndPointName.text() +" -i "+ self.connectClient_inputEndPointName.text()+" -p 6d7973656372657470736b617a657274 -u lwm2m.integ.m2m.orange.com"
-            urn = urn.strip('"')
-            if(counter==0):
-                p = subprocess.Popen(str(urn),shell = True,stdin=PIPE)
-                counter = counter = counter+1
-                strCreate = "create " + self.addResource_inputId.text() #"create 3424"
-                bytesCreate = str.encode(strCreate)
-                counter = counter+1
-            else:
-                strCreate = "create " + self.addResource_inputId.text() #"create 3424"
-                bytesCreate = str.encode(strCreate)
-            
-      
-            p.communicate(bytesCreate)
-   
-        t = threading.Thread(target=addResource_thread)
-        t.start()
         
+        def addResource_thread():
+            global p
+            print(p)
+            # counter = 0
+            # print(threading.get_ident())
+
+            # urn = "java -jar leshan-client-demo.jar "+ "-n "+ "urn:lo:lwm2m:"+ self.connectClient_inputEndPointName.text() +" -i "+ self.connectClient_inputEndPointName.text()+" -p 6d7973656372657470736b617a657274 -u lwm2m.integ.m2m.orange.com"
+            # urn = urn.strip('"')
+            # if(counter==0):
+            #     p = subprocess.Popen(str(urn),shell = True,stdin=PIPE)
+            #     counter = counter = counter+1
+            #     strCreate = "create " + self.addResource_inputId.text() #"create 3424"
+            #     bytesCreate = str.encode(strCreate)
+            #     counter = counter+1
+            # else:
+            #     strCreate = "create " + self.addResource_inputId.text() #"create 3424"
+            #     bytesCreate = str.encode(strCreate)
+            
+            strCreate = "create " + self.addResource_inputId.text()+'\n' #"create 3424"
+            #bytesCreate = str.encode(strCreate)
+            #p = generateProcess.processObj()
+            p.stdin.write(bytes(strCreate,encoding='utf8'))
+            p.stdin.flush()
+            #p.communicate(bytesCreate)
+            
+            
+        #addResource_thread()
+        t2 = threading.Thread(target=addResource_thread)
+        t2.start()
+        
+
+
+    # def __init__(self):
+    #     print("ok")
+
+    # # def processObj():
+    # #     urn = "java -jar leshan-client-demo.jar "+ "-n "+ "urn:lo:lwm2m:"+ "bla5" +" -i "+ "bla5"+" -p 6d7973656372657470736b617a657274 -u lwm2m.integ.m2m.orange.com"
+        
+    # #     urn = urn.strip('"')
+    # #     p = subprocess.Popen(str(urn),shell = True,stdin=PIPE)
+    # #     print(type(p))
+    # #     return p
 
 if __name__ == "__main__":
     import sys
+    
+    #p = generateProcess()
+    #print(p.processObj)
+    #print(type(p))
+    
     app = QtWidgets.QApplication(sys.argv)
     Widget = QtWidgets.QWidget()
     ui = Ui_Widget()
