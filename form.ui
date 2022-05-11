@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>624</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <item row="0" column="1">
+    <widget class="QTabWidget" name="tabs">
+     <property name="currentIndex">
+      <number>4</number>
+     </property>
+     <widget class="QWidget" name="tab_createIface">
+      <attribute name="title">
+       <string>Create interface</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>580</width>
+            <height>501</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="createIface_inputDataSteam"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="createIface_inputPskId"/>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="createIface_labelId">
+             <property name="text">
+              <string>Id</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="createIface_inputId"/>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="createIface_labelPsk">
+             <property name="text">
+              <string>PSK</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="createIface_labelDescription">
+             <property name="text">
+              <string>Description</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="createIface_labelPskId">
+             <property name="text">
+              <string>PSK Id</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="createIface_inputDescription"/>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="createIface_labelDataStreamId">
+             <property name="text">
+              <string>Data Stream Id</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="createIface_inputPsk"/>
+           </item>
+           <item row="6" column="0" colspan="3">
+            <widget class="QPushButton" name="createIface_validateButton">
+             <property name="text">
+              <string>Create</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_connectClient">
+      <attribute name="title">
+       <string>Connect client</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="connectClient_inputEndPointName"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="connectClient_validateButton">
+         <property name="text">
+          <string>Connect</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="connectClient_inputPsk"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="connectClient_inputPskId"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="connectClient_labelEndPointName">
+         <property name="text">
+          <string>Endpoint </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="connectClient_labelEndPointName_2">
+         <property name="text">
+          <string>PSK Id</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="connectClient_labelEndPointName_3">
+         <property name="text">
+          <string>PSK</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_showResouces">
+      <attribute name="title">
+       <string>Show Resources</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="QLabel" name="showResources_labelid">
+         <property name="text">
+          <string>Id</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="showResources_InputId"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QTextBrowser" name="showResources_display"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="showResources_validateButton">
+         <property name="text">
+          <string>Show resources</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_addResources">
+      <attribute name="title">
+       <string>Add resources</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Resource Id</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="addResource_inputId"/>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QPushButton" name="addResource_validatioButton">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_deleteIface">
+      <attribute name="title">
+       <string>Delete interface</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0">
+        <widget class="QLabel" name="deleteInterface_labelId">
+         <property name="text">
+          <string>IId</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="deleteInterface_inputId"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="deleteInterface_validateButton">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
