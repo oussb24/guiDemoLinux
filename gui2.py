@@ -339,7 +339,7 @@ class Ui_Widget(object):
         self.CurrentDevic_label.setText(_translate("Widget", "Current Device"))
     
     
-        def _createIface_function(self):
+        def createIface_function(self):
                 
                         global ifaceNumber
                         url = "https://integ.m2m.orange.com/api/v1/deviceMgt/devices"
