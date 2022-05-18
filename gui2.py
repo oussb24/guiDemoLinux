@@ -10,6 +10,7 @@
 
 from asyncio.subprocess import PIPE
 from ctypes import addressof
+from sys import stdout
 from typing import Counter
 from PyQt5 import QtCore, QtGui, QtWidgets
 import subprocess
@@ -17,11 +18,8 @@ import json
 import requests
 import threading
 
-
-
 #shell process to launch leshan client 
-p = 'None'   
-
+p = 'None'  
 class Ui_Widget(object):
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
@@ -52,7 +50,7 @@ class Ui_Widget(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 866, 447))
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 199, 198))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
         self.gridLayout.setObjectName("gridLayout")
@@ -197,24 +195,43 @@ class Ui_Widget(object):
         self.gridLayout_17.setObjectName("gridLayout_17")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.gridLayout_17.addLayout(self.horizontalLayout, 1, 0, 1, 1)
         self.RWX_validateButton = QtWidgets.QTabWidget(self.scrollAreaWidgetContents)
         self.RWX_validateButton.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.RWX_validateButton.setObjectName("RWX_validateButton")
         self.tab_deviceInfos = QtWidgets.QWidget()
         self.tab_deviceInfos.setObjectName("tab_deviceInfos")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.tab_deviceInfos)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.detailedObjects_objectPath = QtWidgets.QLabel(self.tab_deviceInfos)
+        self.detailedObjects_objectPath.setObjectName("detailedObjects_objectPath")
+        self.gridLayout_10.addWidget(self.detailedObjects_objectPath, 1, 0, 1, 1)
+        self.detailedObjects_deviceId_Input = QtWidgets.QLineEdit(self.tab_deviceInfos)
+        self.detailedObjects_deviceId_Input.setObjectName("detailedObjects_deviceId_Input")
+        self.gridLayout_10.addWidget(self.detailedObjects_deviceId_Input, 0, 1, 1, 1)
+        self.detailedObjects_objectPath_Input = QtWidgets.QLineEdit(self.tab_deviceInfos)
+        self.detailedObjects_objectPath_Input.setObjectName("detailedObjects_objectPath_Input")
+        self.gridLayout_10.addWidget(self.detailedObjects_objectPath_Input, 1, 1, 1, 1)
+        self.detailedObjects_deviceId = QtWidgets.QLabel(self.tab_deviceInfos)
+        self.detailedObjects_deviceId.setObjectName("detailedObjects_deviceId")
+        self.gridLayout_10.addWidget(self.detailedObjects_deviceId, 0, 0, 1, 1)
+        self.detailedObjects_display = QtWidgets.QTextBrowser(self.tab_deviceInfos)
+        self.detailedObjects_display.setObjectName("detailedObjects_display")
+        self.gridLayout_10.addWidget(self.detailedObjects_display, 2, 1, 1, 1)
         self.RWX_validateButton.addTab(self.tab_deviceInfos, "")
         self.tab_4 = QtWidgets.QWidget()
         self.tab_4.setObjectName("tab_4")
         self.gridLayout_21 = QtWidgets.QGridLayout(self.tab_4)
         self.gridLayout_21.setObjectName("gridLayout_21")
-
+        # self.registeredOps_bodyInput = QtWidgets.QPlainTextEdit(self.tab_4)
+        # self.registeredOps_bodyInput.setPlainText("")
+        # self.registeredOps_bodyInput.setObjectName("registeredOps_bodyInput")
+        # self.gridLayout_21.addWidget(self.registeredOps_bodyInput, 4, 1, 1, 1)
         self.registeredOps_display = QtWidgets.QTextBrowser(self.tab_4)
         self.registeredOps_display.setObjectName("registeredOps_display")
         self.gridLayout_21.addWidget(self.registeredOps_display, 5, 1, 1, 1)
-        self.label_3 = QtWidgets.QLabel(self.tab_4)
-        self.label_3.setObjectName("label_3")
-        self.gridLayout_21.addWidget(self.label_3, 4, 0, 1, 1)
+        # self.label_3 = QtWidgets.QLabel(self.tab_4)
+        # self.label_3.setObjectName("label_3")
+        # self.gridLayout_21.addWidget(self.label_3, 4, 0, 1, 1)
         self.OpsRegisteredOps_idDeviceInput = QtWidgets.QLineEdit(self.tab_4)
         self.OpsRegisteredOps_idDeviceInput.setObjectName("OpsRegisteredOps_idDeviceInput")
         self.gridLayout_21.addWidget(self.OpsRegisteredOps_idDeviceInput, 1, 1, 1, 1)
@@ -244,9 +261,9 @@ class Ui_Widget(object):
         self.CreateNewOps_idDeviceInput = QtWidgets.QLineEdit(self.tab_3)
         self.CreateNewOps_idDeviceInput.setObjectName("CreateNewOps_idDeviceInput")
         self.gridLayout_20.addWidget(self.CreateNewOps_idDeviceInput, 0, 1, 1, 1)
-        self.pushButton_2 = QtWidgets.QPushButton(self.tab_3)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.gridLayout_20.addWidget(self.pushButton_2, 3, 1, 1, 1)
+        self.createNewOps_validateButton = QtWidgets.QPushButton(self.tab_3)
+        self.createNewOps_validateButton.setObjectName("createNewOps_validateButton")
+        self.gridLayout_20.addWidget(self.createNewOps_validateButton, 3, 1, 1, 1)
         self.RWX_validateButton.addTab(self.tab_3, "")
         self.tab_5 = QtWidgets.QWidget()
         self.tab_5.setObjectName("tab_5")
@@ -271,7 +288,8 @@ class Ui_Widget(object):
         self.pushButton_3.setObjectName("pushButton_3")
         self.gridLayout_19.addWidget(self.pushButton_3, 4, 1, 1, 1)
         self.RWX_validateButton.addTab(self.tab_5, "")
-        self.gridLayout_17.addWidget(self.RWX_validateButton, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.RWX_validateButton)
+        self.gridLayout_17.addLayout(self.horizontalLayout, 1, 0, 1, 1)
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout_4.addWidget(self.scrollArea_2, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_2, "")
@@ -280,8 +298,6 @@ class Ui_Widget(object):
         self.CurrentDevic_label.setObjectName("CurrentDevic_label")
         self.gridLayout_2.addWidget(self.CurrentDevic_label, 2, 0, 1, 1)
 
-         #linking buttons to functions
-
         self.createIface_validateButton.clicked.connect(self.createIface_function)
         self.deleteInterface_validateButton.clicked.connect(self.deleteIface_function)
         self.connectClient_validateButton.clicked.connect(self.connectIface_function)
@@ -289,17 +305,18 @@ class Ui_Widget(object):
         self.addResource_validatioButton.clicked.connect(self.addResoource_function)
         self.showConnectedDevices_validateButton.clicked.connect(self.showConnectedDevices_function)
         self.registeredDevices_validateButton.clicked.connect(self.showRegisterdOps_function)
+        self.createNewOps_validateButton.clicked.connect(self.createNewOps_function)
 
         self.retranslateUi(Widget)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         self.tabs.setCurrentIndex(1)
-        self.RWX_validateButton.setCurrentIndex(3)
+        self.RWX_validateButton.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Widget)
 
     def retranslateUi(self, Widget):
         _translate = QtCore.QCoreApplication.translate
         Widget.setWindowTitle(_translate("Widget", "Widget"))
-        self.currentDevice_display.setText(_translate("Widget", "TextLabel"))
+        self.currentDevice_display.setText(_translate("Widget", ""))
         self.CurrentDevice_label_display_Connexion.setText(_translate("Widget", "TextLabel"))
         self.createIface_labelId.setText(_translate("Widget", "Id"))
         self.createIface_labelPsk.setText(_translate("Widget", "PSK"))
@@ -326,7 +343,10 @@ class Ui_Widget(object):
         self.deleteInterface_validateButton.setText(_translate("Widget", "Delete"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_deleteIface), _translate("Widget", "Delete interface"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Widget", "Connexion"))
-        self.RWX_validateButton.setTabText(self.RWX_validateButton.indexOf(self.tab_deviceInfos), _translate("Widget", "Device resources"))
+        self.detailedObjects_objectPath.setText(_translate("Widget", "Object path"))
+        self.detailedObjects_deviceId.setText(_translate("Widget", "Device Id"))
+        self.RWX_validateButton.setTabText(self.RWX_validateButton.indexOf(self.tab_deviceInfos), _translate("Widget", "Detailed objects"))
+        #self.label_3.setText(_translate("Widget", "Body"))
         self.OpsRegisteredOps_idDevice.setText(_translate("Widget", "Device"))
         self.registeredDevices_validateButton.setText(_translate("Widget", "Show registered operations"))
         self.RWX_validateButton.setTabText(self.RWX_validateButton.indexOf(self.tab_4), _translate("Widget", "Registered Operations"))
@@ -337,9 +357,9 @@ class Ui_Widget(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">{&quot;type&quot;:&quot;READ&quot;,</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">&quot;paths&quot;:[&quot;/5/0&quot;]</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">&quot;paths&quot;:[&quot;/1/0&quot;]</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">}</p></body></html>"))
-        self.pushButton_2.setText(_translate("Widget", "Create new operation"))
+        self.createNewOps_validateButton.setText(_translate("Widget", "Create new operation"))
         self.RWX_validateButton.setTabText(self.RWX_validateButton.indexOf(self.tab_3), _translate("Widget", "Create a new operation"))
         self.Read_idLabel.setText(_translate("Widget", "Device"))
         self.RWX_labelBody.setText(_translate("Widget", "Body"))
@@ -444,6 +464,7 @@ class Ui_Widget(object):
             p = subprocess.Popen(["java","-jar","leshan-client-demo.jar","-n","urn:lo:lwm2m:"+self.connectClient_inputEndPointName.text(),"-i",self.connectClient_inputEndPointName.text(),"-p","6d7973656372657470736b617a657274","-u","lwm2m.integ.m2m.orange.com"], stdin=PIPE,stderr=PIPE)
         else:
             print("p has already been changed")
+        self.currentDevice_display.setText(self.connectClient_inputEndPointName.text())
     def deleteIface_function(self):
             url = "https://integ.m2m.orange.com/api/v1/deviceMgt/devices/urn:lo:nsid:lwm2m:"+ self.connectClient_inputEndPointName.text()
             payload={}
@@ -515,7 +536,7 @@ class Ui_Widget(object):
             #connectedDevices.append(registreredDevices[urn])
          
     def showRegisterdOps_function(self):
-        url = "https://integ.m2m.orange.com/api/v1/deviceMgt/devices/urn:lo:nsid:lwm2m:bla5/twin/operations"
+        url = "https://integ.m2m.orange.com/api/v1/deviceMgt/devices/urn:lo:nsid:lwm2m:"+self.OpsRegisteredOps_idDeviceInput.text()+"/twin/operations"
 
         payload={}
         headers = {
@@ -526,7 +547,26 @@ class Ui_Widget(object):
         response = requests.request("GET", url, headers=headers, data=payload,verify = False).text
         
         self.registeredOps_display.setText(response)
+        print(response)
               
+    def createNewOps_function(self):
+        newOpsBody= json.loads(self.createNewOps_bodyInput.toPlainText())
+        
+        print(newOpsBody)
+        url = "https://integ.m2m.orange.com/api/v1/deviceMgt/devices/urn:lo:nsid:lwm2m:"+self.CreateNewOps_idDeviceInput.text()+"/twin/operations"
+            
+        payload = json.dumps(newOpsBody)
+        print(type(payload))
+        headers = {
+        'X-API-Key': '1d576207727841a7b9aa2a1f24448f86',
+        'Content-Type': 'application/json'
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload,verify=False)
+        self.createNewOps_display.setText(response.text)
+        print(response.text)
+        
+    
 
 
 if __name__ == "__main__":
